@@ -1,20 +1,25 @@
 import Admin from "../models/Admin.js";
 import jwt from "jsonwebtoken";
+import mongoose from "mongoose";
 
-// Generate JWT Token
 const generateToken = (id) => {
-  return jwt.sign({ id }, process.env.JWT_SECRET, {
-    expiresIn: process.env.JWT_EXPIRE,
-  });
+  return jwt.sign(
+    { id },
+    process.env.JWT_SECRET,
+    {
+      expiresIn: process.env.JWT_EXPIRE || "7d",
+    }
+  );
 };
 
-// @desc    Login admin
-// @route   POST /api/admin/login
-// @access  Public
+// =========================
+// ADMIN LOGIN
+// =========================
 export const login = async (req, res) => {
   try {
     const { email, password } = req.body;
 
+    // Validate input
     if (!email || !password) {
       return res.status(400).json({
         success: false,
@@ -22,8 +27,46 @@ export const login = async (req, res) => {
       });
     }
 
-    const admin = await Admin.findOne({ email }).select("+password");
+    // Check MongoDB connection
+    console.log("========== ADMIN LOGIN ==========");
+    console.log("Email:", email);
+    console.log(
+      "MongoDB readyState:",
+      mongoose.connection.readyState
+    );
+    console.log(
+      "MongoDB host:",
+      mongoose.connection.host
+    );
+    console.log(
+      "MongoDB database:",
+      mongoose.connection.name
+    );
 
+    // Make sure database is connected
+    if (mongoose.connection.readyState !== 1) {
+      console.error(
+        "MongoDB is not connected. readyState:",
+        mongoose.connection.readyState
+      );
+
+      return res.status(503).json({
+        success: false,
+        message: "Database connection is unavailable",
+      });
+    }
+
+    // Find admin
+    const admin = await Admin.findOne({
+      email: email.toLowerCase().trim(),
+    }).select("+password");
+
+    console.log(
+      "Admin found:",
+      admin ? "YES" : "NO"
+    );
+
+    // Admin doesn't exist
     if (!admin) {
       return res.status(401).json({
         success: false,
@@ -31,6 +74,7 @@ export const login = async (req, res) => {
       });
     }
 
+    // Check password
     const isMatch = await admin.matchPassword(password);
 
     if (!isMatch) {
@@ -40,9 +84,13 @@ export const login = async (req, res) => {
       });
     }
 
+    // Generate JWT
     const token = generateToken(admin._id);
 
-    res.json({
+    console.log("Admin login successful");
+    console.log("================================");
+
+    return res.json({
       success: true,
       token,
       admin: {
@@ -53,21 +101,39 @@ export const login = async (req, res) => {
       },
     });
   } catch (error) {
-    res.status(500).json({
+    console.error("========== LOGIN ERROR ==========");
+    console.error("Error name:", error.name);
+    console.error("Error message:", error.message);
+    console.error("Error stack:", error.stack);
+    console.error("=================================");
+
+    return res.status(500).json({
       success: false,
       message: error.message,
     });
   }
 };
 
-// @desc    Register admin
-// @route   POST /api/admin/register
-// @access  Public
+// =========================
+// REGISTER ADMIN
+// =========================
 export const register = async (req, res) => {
   try {
     const { name, email, password } = req.body;
 
-    const existingAdmin = await Admin.findOne({ email });
+    if (!name || !email || !password) {
+      return res.status(400).json({
+        success: false,
+        message: "Please provide name, email and password",
+      });
+    }
+
+    const normalizedEmail = email.toLowerCase().trim();
+
+    const existingAdmin = await Admin.findOne({
+      email: normalizedEmail,
+    });
+
     if (existingAdmin) {
       return res.status(400).json({
         success: false,
@@ -76,14 +142,14 @@ export const register = async (req, res) => {
     }
 
     const admin = await Admin.create({
-      name,
-      email,
+      name: name.trim(),
+      email: normalizedEmail,
       password,
     });
 
     const token = generateToken(admin._id);
 
-    res.status(201).json({
+    return res.status(201).json({
       success: true,
       token,
       admin: {
@@ -94,21 +160,30 @@ export const register = async (req, res) => {
       },
     });
   } catch (error) {
-    res.status(500).json({
+    console.error("Register error:", error);
+
+    return res.status(500).json({
       success: false,
       message: error.message,
     });
   }
 };
 
-// @desc    Get current admin profile
-// @route   GET /api/admin/profile
-// @access  Private
+// =========================
+// GET ADMIN PROFILE
+// =========================
 export const getProfile = async (req, res) => {
   try {
     const admin = await Admin.findById(req.admin.id);
 
-    res.json({
+    if (!admin) {
+      return res.status(404).json({
+        success: false,
+        message: "Admin not found",
+      });
+    }
+
+    return res.json({
       success: true,
       admin: {
         id: admin._id,
@@ -119,27 +194,53 @@ export const getProfile = async (req, res) => {
       },
     });
   } catch (error) {
-    res.status(500).json({
+    console.error("Get profile error:", error);
+
+    return res.status(500).json({
       success: false,
       message: error.message,
     });
   }
 };
 
-// @desc    Update admin profile
-// @route   PUT /api/admin/profile
-// @access  Private
+// =========================
+// UPDATE ADMIN PROFILE
+// =========================
 export const updateProfile = async (req, res) => {
   try {
     const { name, email, phone } = req.body;
 
+    const updateData = {};
+
+    if (name !== undefined) {
+      updateData.name = name.trim();
+    }
+
+    if (email !== undefined) {
+      updateData.email = email.toLowerCase().trim();
+    }
+
+    if (phone !== undefined) {
+      updateData.phone = phone;
+    }
+
     const admin = await Admin.findByIdAndUpdate(
       req.admin.id,
-      { name, email, phone },
-      { new: true, runValidators: true },
+      updateData,
+      {
+        new: true,
+        runValidators: true,
+      }
     );
 
-    res.json({
+    if (!admin) {
+      return res.status(404).json({
+        success: false,
+        message: "Admin not found",
+      });
+    }
+
+    return res.json({
       success: true,
       admin: {
         id: admin._id,
@@ -150,7 +251,9 @@ export const updateProfile = async (req, res) => {
       },
     });
   } catch (error) {
-    res.status(500).json({
+    console.error("Update profile error:", error);
+
+    return res.status(500).json({
       success: false,
       message: error.message,
     });
