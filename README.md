@@ -154,3 +154,9 @@ Creates: admin@example.com/admin123 + sample trainers/programs/plans.
 - **API 404**: Check backend routes `/api/*`
 - **Admin not found**: Run seed.js
 - **Build fails**: Node 18+
+
+## License
+
+MIT License © 2026 Mohd Faris
+
+See the [LICENSE](LICENSE) file for the full license text.
