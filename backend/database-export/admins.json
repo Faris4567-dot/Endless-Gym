@@ -1,0 +1,16 @@
+[
+  {
+    "_id": {
+      "$oid": "69ac9674df6ad09d90a5033d"
+    },
+    "name": "Admin",
+    "email": "admin@fitpro.gym",
+    "password": "$2a$10$0VY/0vHxEphtazhMZ9WMwe277xvuOuFBKkuNpwUMGgLV1WQxYtAJC",
+    "role": "superadmin",
+    "phone": "",
+    "createdAt": {
+      "$date": "2026-03-07T21:19:48.619Z"
+    },
+    "__v": 0
+  }
+]

@@ -1,0 +1,33 @@
+[
+  {
+    "_id": {
+      "$oid": "6ab0c6efdfd4c6fde6694be1"
+    },
+    "name": "sqd",
+    "email": "qdxwd@gmial.com",
+    "phone": "5664684",
+    "gender": "male",
+    "address": "",
+    "emergencyContact": "",
+    "planName": "Elite",
+    "membershipStatus": "active",
+    "paymentStatus": "pending",
+    "amount": 129,
+    "image": "",
+    "fitnessGoal": "casc",
+    "notes": "",
+    "createdAt": {
+      "$date": "2026-09-21T05:55:59.796Z"
+    },
+    "__v": 0,
+    "membershipPlan": {
+      "$oid": "69ac9674df6ad09d90a5034c"
+    },
+    "membershipEnd": {
+      "$date": "2026-10-21T08:21:23.674Z"
+    },
+    "membershipStart": {
+      "$date": "2026-09-21T08:21:23.674Z"
+    }
+  }
+]

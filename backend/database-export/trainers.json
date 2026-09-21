@@ -1,0 +1,32 @@
+[
+  {
+    "_id": {
+      "$oid": "69ac9674df6ad09d90a5033f"
+    },
+    "name": "Sahil Razzaq",
+    "specialization": "Strength & Conditioning",
+    "experience": 5,
+    "certifications": [
+      "NASM-CPT",
+      "NSCA-CSCS",
+      "CrossFit L2"
+    ],
+    "bio": "Sahil specializes in strength training and has helped hundreds of members achieve their muscle-building goals.",
+    "image": "/uploads/trainers/trainer-1789983058910-147711963.jpeg",
+    "phone": "+91 90964 08523",
+    "specialties": [
+      "Weight Training",
+      "Powerlifting",
+      "Sports Conditioning"
+    ],
+    "isActive": true,
+    "createdAt": {
+      "$date": "2026-03-07T21:19:48.711Z"
+    },
+    "__v": 0,
+    "email": "syedsahil22072000@gmail.com",
+    "updatedAt": {
+      "$date": "2026-09-21T09:49:56.828Z"
+    }
+  }
+]

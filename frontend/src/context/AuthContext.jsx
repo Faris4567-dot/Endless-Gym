@@ -5,9 +5,11 @@ const AuthContext = createContext(null);
 
 export const useAuth = () => {
     const context = useContext(AuthContext);
+
     if (!context) {
         throw new Error('useAuth must be used within an AuthProvider');
     }
+
     return context;
 };
 
@@ -16,38 +18,99 @@ export const AuthProvider = ({ children }) => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
+    // Restore and verify admin session
     useEffect(() => {
-        const token = localStorage.getItem('adminToken');
-        const adminInfo = localStorage.getItem('adminInfo');
+        const restoreSession = async () => {
+            const token = localStorage.getItem('adminToken');
 
-        if (token && adminInfo) {
-            setAdmin(JSON.parse(adminInfo));
-        }
-        setLoading(false);
+            if (!token) {
+                setLoading(false);
+                return;
+            }
+
+            try {
+                const response = await authAPI.getProfile();
+
+                if (response.data.success) {
+                    const adminData = response.data.admin;
+
+                    setAdmin(adminData);
+                    localStorage.setItem(
+                        'adminInfo',
+                        JSON.stringify(adminData)
+                    );
+                } else {
+                    logout();
+                }
+            } catch (error) {
+                localStorage.removeItem('adminToken');
+                localStorage.removeItem('adminInfo');
+                setAdmin(null);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        restoreSession();
     }, []);
 
+    // Login
     const login = async (email, password) => {
         try {
             setError(null);
-            const response = await authAPI.login({ email, password });
+
+            const response = await authAPI.login({
+                email,
+                password,
+            });
 
             if (response.data.success) {
-                localStorage.setItem('adminToken', response.data.token);
-                localStorage.setItem('adminInfo', JSON.stringify(response.data.admin));
-                setAdmin(response.data.admin);
-                return { success: true };
+                const { token, admin: adminData } = response.data;
+
+                localStorage.setItem('adminToken', token);
+                localStorage.setItem(
+                    'adminInfo',
+                    JSON.stringify(adminData)
+                );
+
+                setAdmin(adminData);
+
+                return {
+                    success: true,
+                    admin: adminData,
+                };
             }
-        } catch (err) {
-            const message = err.response?.data?.message || 'Login failed';
+
+            const message =
+                response.data.message || 'Login failed';
+
             setError(message);
-            return { success: false, message };
+
+            return {
+                success: false,
+                message,
+            };
+        } catch (err) {
+            const message =
+                err.response?.data?.message ||
+                'Unable to login. Please try again.';
+
+            setError(message);
+
+            return {
+                success: false,
+                message,
+            };
         }
     };
 
+    // Logout
     const logout = () => {
         localStorage.removeItem('adminToken');
         localStorage.removeItem('adminInfo');
+
         setAdmin(null);
+        setError(null);
     };
 
     const value = {
@@ -56,7 +119,7 @@ export const AuthProvider = ({ children }) => {
         error,
         login,
         logout,
-        isAuthenticated: !!admin
+        isAuthenticated: !!admin,
     };
 
     return (
@@ -67,4 +130,3 @@ export const AuthProvider = ({ children }) => {
 };
 
 export default AuthContext;
-

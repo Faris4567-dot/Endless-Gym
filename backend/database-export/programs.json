@@ -1,0 +1,56 @@
+[
+  {
+    "_id": {
+      "$oid": "69ac9674df6ad09d90a50344"
+    },
+    "name": "Weight Training",
+    "description": "Build muscle and strength with our comprehensive weight training program designed for all levels.",
+    "category": "weight-training",
+    "image": "https://images.unsplash.com/photo-1581009146145-b5ef050c149a?w=600&h=400&fit=crop",
+    "schedule": "Mon-Fri 6AM-9PM",
+    "duration": "1 hour",
+    "trainerName": "Alex Johnson",
+    "price": 0,
+    "isActive": true,
+    "createdAt": {
+      "$date": "2026-03-07T21:19:48.722Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "69ac9674df6ad09d90a50345"
+    },
+    "name": "CrossFit",
+    "description": "High-intensity functional fitness program that combines weightlifting, cardio, and gymnastics.",
+    "category": "crossfit",
+    "image": "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=600&h=400&fit=crop",
+    "schedule": "Mon-Fri 7AM, 6PM",
+    "duration": "45 mins",
+    "trainerName": "Mike Chen",
+    "price": 79,
+    "isActive": true,
+    "createdAt": {
+      "$date": "2026-03-07T21:19:48.723Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "69ac9674df6ad09d90a50348"
+    },
+    "name": "Personal Training",
+    "description": "One-on-one coaching with certified trainers to help you achieve your specific fitness goals.",
+    "category": "personal-training",
+    "image": "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=600&h=400&fit=crop",
+    "schedule": "By Appointment",
+    "duration": "1 hour",
+    "trainerName": "Emily Davis",
+    "price": 99,
+    "isActive": true,
+    "createdAt": {
+      "$date": "2026-03-07T21:19:48.723Z"
+    },
+    "__v": 0
+  }
+]

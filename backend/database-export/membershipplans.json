@@ -1,0 +1,94 @@
+[
+  {
+    "_id": {
+      "$oid": "69ac9674df6ad09d90a5034a"
+    },
+    "name": "Basic",
+    "description": "Perfect for beginners",
+    "duration": "monthly",
+    "price": 49,
+    "originalPrice": 59,
+    "features": [
+      "Gym Access",
+      "Locker Room",
+      "Free Parking",
+      "Mobile App"
+    ],
+    "image": "",
+    "isPopular": false,
+    "isActive": true,
+    "createdAt": {
+      "$date": "2026-03-07T21:19:48.728Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "69ac9674df6ad09d90a5034b"
+    },
+    "name": "Pro",
+    "description": "Most Popular Choice",
+    "duration": "monthly",
+    "price": 449,
+    "originalPrice": 99,
+    "features": [
+      "All Basic Features",
+      "Group Classes",
+      "Sauna Access",
+      "1 PT Session/month"
+    ],
+    "image": "",
+    "isPopular": true,
+    "isActive": true,
+    "createdAt": {
+      "$date": "2026-03-07T21:19:48.728Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "69ac9674df6ad09d90a5034c"
+    },
+    "name": "Elite",
+    "description": "Premium Experience",
+    "duration": "monthly",
+    "price": 129,
+    "originalPrice": 149,
+    "features": [
+      "All Pro Features",
+      "Unlimited PT Sessions",
+      "Nutrition Plan",
+      "Guest Pass"
+    ],
+    "image": "",
+    "isPopular": false,
+    "isActive": true,
+    "createdAt": {
+      "$date": "2026-03-07T21:19:48.728Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "69ac9674df6ad09d90a5034d"
+    },
+    "name": "Annual",
+    "description": "Best Value",
+    "duration": "yearly",
+    "price": 799,
+    "originalPrice": 999,
+    "features": [
+      "All Elite Features",
+      "Free Merchandise",
+      "Priority Booking",
+      "Exclusive Events"
+    ],
+    "image": "",
+    "isPopular": false,
+    "isActive": true,
+    "createdAt": {
+      "$date": "2026-03-07T21:19:48.728Z"
+    },
+    "__v": 0
+  }
+]

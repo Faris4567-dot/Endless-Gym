@@ -118,7 +118,7 @@ const AboutPage = () => {
                             </h2>
                             <div className="space-y-4 text-dark-600">
                                 <p>
-                                    Founded in 2014, FitPro Gym started with a simple vision: to create a fitness center that truly cares about its members' success. What began as a small local gym has grown into one of the most trusted fitness destinations in the region.
+                                    Founded in 2014, Endless Gym started with a simple vision: to create a fitness center that truly cares about its members' success. What began as a small local gym has grown into one of the most trusted fitness destinations in the region.
                                 </p>
                                 <p>
                                     Our founder, a former professional athlete, understood that achieving fitness goals requires more than just equipment - it needs community, guidance, and unwavering support. That's exactly what we've built at FitPro.
@@ -313,7 +313,23 @@ const AboutPage = () => {
                         </p>
                         <div className="flex flex-col sm:flex-row gap-4 justify-center">
                             <Link to="/membership">
-                                <Button size="lg" variant="secondary" className="bg-white text-primary-600 hover:bg-dark-100">
+                                <Button
+                                    size="lg"
+                                    variant="secondary"
+                                    className="
+        !bg-dark-950
+        !text-white
+        !border-2
+        !border-dark-950
+        hover:!bg-white
+        hover:!text-dark-950
+        hover:!border-white
+        hover:!shadow-xl
+        transition-all
+        duration-300
+        font-semibold
+    "
+                                >
                                     View Membership Plans
                                 </Button>
                             </Link>

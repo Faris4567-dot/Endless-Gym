@@ -2,10 +2,14 @@ import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Button from '../../components/ui/Button';
 import Input from '../../components/ui/Input';
-import { memberAPI } from '../../services/api';
+import {
+    memberAPI,
+    membershipAPI,
+} from "../../services/api";
 
 const MembersPage = () => {
     const [members, setMembers] = useState([]);
+    const [membershipPlans, setMembershipPlans] = useState([]);
     const [loading, setLoading] = useState(true);
     const [showModal, setShowModal] = useState(false);
     const [editingMember, setEditingMember] = useState(null);
@@ -21,7 +25,21 @@ const MembersPage = () => {
 
     useEffect(() => {
         fetchMembers();
+        fetchMembershipPlans();
     }, []);
+    const fetchMembershipPlans = async () => {
+        try {
+            const response = await membershipAPI.getAll({
+                active: true,
+            });
+
+            if (response.data.success) {
+                setMembershipPlans(response.data.plans || []);
+            }
+        } catch (error) {
+            console.error("Error fetching membership plans:", error);
+        }
+    };
 
     const fetchMembers = async () => {
         try {
@@ -70,6 +88,30 @@ const MembersPage = () => {
             }
         }
     };
+    const handleRenew = async (member) => {
+        const confirmed = window.confirm(
+            `Renew ${member.name}'s membership using the current plan?`
+        );
+
+        if (!confirmed) {
+            return;
+        }
+
+        try {
+            await memberAPI.renew(member._id);
+
+            alert("Membership renewed successfully.");
+
+            await fetchMembers();
+        } catch (error) {
+            console.error("Error renewing membership:", error);
+
+            alert(
+                error.response?.data?.message ||
+                "Failed to renew membership."
+            );
+        }
+    };
 
     const handleEdit = (member) => {
         setEditingMember(member);
@@ -78,7 +120,10 @@ const MembersPage = () => {
             email: member.email,
             phone: member.phone,
             gender: member.gender,
-            membershipPlan: member.planName || '',
+            membershipPlan:
+                member.membershipPlan?._id ||
+                member.membershipPlan ||
+                '',
             membershipStatus: member.membershipStatus,
             fitnessGoal: member.fitnessGoal || ''
         });
@@ -109,6 +154,7 @@ const MembersPage = () => {
                                 <th className="text-left py-4 px-6 font-semibold text-dark-900">Plan</th>
                                 <th className="text-left py-4 px-6 font-semibold text-dark-900">Status</th>
                                 <th className="text-left py-4 px-6 font-semibold text-dark-900">Joined</th>
+                                <th className="text-left py-4 px-6 font-semibold text-dark-900">Expires</th>
                                 <th className="text-right py-4 px-6 font-semibold text-dark-900">Actions</th>
                             </tr>
                         </thead>
@@ -148,23 +194,149 @@ const MembersPage = () => {
                                             <p className="text-sm text-dark-500">{member.phone}</p>
                                         </td>
                                         <td className="py-4 px-6">
-                                            <span className="text-dark-700">{member.planName || 'No Plan'}</span>
+                                            <div>
+                                                <p className="text-dark-700 font-medium">
+                                                    {member.planName || 'No Plan'}
+                                                </p>
+
+                                                {member.membershipPlan?.duration && (
+                                                    <p className="text-sm text-dark-500 capitalize">
+                                                        {member.membershipPlan.duration === 'monthly'
+                                                            ? '1 Month'
+                                                            : member.membershipPlan.duration === 'quarterly'
+                                                                ? '3 Months'
+                                                                : member.membershipPlan.duration === 'half-yearly'
+                                                                    ? '6 Months'
+                                                                    : member.membershipPlan.duration === 'yearly'
+                                                                        ? '12 Months'
+                                                                        : member.membershipPlan.duration}
+                                                    </p>
+                                                )}
+                                            </div>
                                         </td>
                                         <td className="py-4 px-6">
                                             <span className={`px-3 py-1 rounded-full text-xs font-medium ${member.membershipStatus === 'active'
-                                                    ? 'bg-green-100 text-green-700'
-                                                    : member.membershipStatus === 'pending'
-                                                        ? 'bg-yellow-100 text-yellow-700'
-                                                        : 'bg-red-100 text-red-700'
+                                                ? 'bg-green-100 text-green-700'
+                                                : member.membershipStatus === 'pending'
+                                                    ? 'bg-yellow-100 text-yellow-700'
+                                                    : 'bg-red-100 text-red-700'
                                                 }`}>
                                                 {member.membershipStatus}
                                             </span>
                                         </td>
                                         <td className="py-4 px-6 text-dark-500">
-                                            {new Date(member.createdAt).toLocaleDateString()}
+                                            {member.membershipStart
+                                                ? new Date(member.membershipStart).toLocaleDateString()
+                                                : new Date(member.createdAt).toLocaleDateString()}
                                         </td>
+
+                                        <td className="py-4 px-6">
+                                            {member.membershipEnd ? (
+                                                (() => {
+                                                    const expiryDate = new Date(member.membershipEnd);
+
+                                                    const today = new Date();
+
+                                                    expiryDate.setHours(0, 0, 0, 0);
+                                                    today.setHours(0, 0, 0, 0);
+
+                                                    const daysLeft = Math.ceil(
+                                                        (expiryDate - today) /
+                                                        (1000 * 60 * 60 * 24)
+                                                    );
+
+                                                    // EXPIRED
+                                                    if (daysLeft < 0) {
+                                                        return (
+                                                            <div>
+                                                                <p className="text-red-600 font-medium">
+                                                                    {expiryDate.toLocaleDateString()}
+                                                                </p>
+
+                                                                <p className="text-xs text-red-500 font-medium">
+                                                                    Expired
+                                                                </p>
+                                                            </div>
+                                                        );
+                                                    }
+
+                                                    // EXPIRES TODAY
+                                                    if (daysLeft === 0) {
+                                                        return (
+                                                            <div>
+                                                                <p className="text-red-600 font-medium">
+                                                                    {expiryDate.toLocaleDateString()}
+                                                                </p>
+
+                                                                <p className="text-xs text-red-500 font-medium">
+                                                                    Expires today
+                                                                </p>
+                                                            </div>
+                                                        );
+                                                    }
+
+                                                    // 1–7 DAYS
+                                                    if (daysLeft <= 7) {
+                                                        return (
+                                                            <div>
+                                                                <p className="text-orange-600 font-medium">
+                                                                    {expiryDate.toLocaleDateString()}
+                                                                </p>
+
+                                                                <p className="text-xs text-orange-500 font-medium">
+                                                                    {daysLeft}{" "}
+                                                                    {daysLeft === 1
+                                                                        ? "day"
+                                                                        : "days"}{" "}
+                                                                    left
+                                                                </p>
+                                                            </div>
+                                                        );
+                                                    }
+
+                                                    // 8–30 DAYS
+                                                    if (daysLeft <= 30) {
+                                                        return (
+                                                            <div>
+                                                                <p className="text-yellow-600 font-medium">
+                                                                    {expiryDate.toLocaleDateString()}
+                                                                </p>
+
+                                                                <p className="text-xs text-yellow-600">
+                                                                    {daysLeft} days left
+                                                                </p>
+                                                            </div>
+                                                        );
+                                                    }
+
+                                                    // MORE THAN 30 DAYS
+                                                    return (
+                                                        <div>
+                                                            <p className="text-dark-700 font-medium">
+                                                                {expiryDate.toLocaleDateString()}
+                                                            </p>
+
+                                                            <p className="text-xs text-dark-500">
+                                                                {daysLeft} days left
+                                                            </p>
+                                                        </div>
+                                                    );
+                                                })()
+                                            ) : (
+                                                <span className="text-dark-400">
+                                                    Not calculated
+                                                </span>
+                                            )}
+                                        </td>
+
                                         <td className="py-4 px-6 text-right">
                                             <div className="flex items-center justify-end gap-2">
+                                                <button
+                                                    onClick={() => handleRenew(member)}
+                                                    className="px-3 py-2 text-xs font-medium text-green-600 border border-green-200 rounded-lg hover:bg-green-50 transition-colors"
+                                                >
+                                                    Renew
+                                                </button>
                                                 <button
                                                     onClick={() => handleEdit(member)}
                                                     className="p-2 text-dark-500 hover:text-primary-600 transition-colors"
@@ -237,13 +409,30 @@ const MembersPage = () => {
                                     <option value="female">Female</option>
                                     <option value="other">Other</option>
                                 </select>
-                            </div>
-                            <Input
-                                label="Plan Name"
-                                value={formData.membershipPlan}
-                                onChange={(e) => setFormData({ ...formData, membershipPlan: e.target.value })}
-                            />
-                            <div>
+                                <div>
+                                    <label className="block text-sm font-medium text-dark-700 mb-2">
+                                        Membership Plan
+                                    </label>
+
+                                    <select
+                                        value={formData.membershipPlan}
+                                        onChange={(e) =>
+                                            setFormData({
+                                                ...formData,
+                                                membershipPlan: e.target.value,
+                                            })
+                                        }
+                                        className="w-full px-4 py-3 border border-dark-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
+                                    >
+                                        <option value="">Select Membership Plan</option>
+
+                                        {membershipPlans.map((plan) => (
+                                            <option key={plan._id} value={plan._id}>
+                                                {plan.name} - ₹{plan.price}
+                                            </option>
+                                        ))}
+                                    </select>
+                                </div>
                                 <label className="block text-sm font-medium text-dark-700 mb-2">Status</label>
                                 <select
                                     value={formData.membershipStatus}

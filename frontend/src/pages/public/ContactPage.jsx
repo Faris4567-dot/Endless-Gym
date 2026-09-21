@@ -199,7 +199,7 @@ const ContactPage = () => {
                                         </div>
                                         <div>
                                             <h4 className="font-semibold text-dark-900">Address</h4>
-                                            <p className="text-dark-600">123 Fitness Street, Gym City, GC 12345</p>
+                                            <p className="text-dark-600">Opposite durga mata temple ,Choani,Nagpur</p>
                                         </div>
                                     </div>
                                     <div className="flex items-start gap-4">
@@ -210,7 +210,7 @@ const ContactPage = () => {
                                         </div>
                                         <div>
                                             <h4 className="font-semibold text-dark-900">Phone</h4>
-                                            <p className="text-dark-600">+1 (555) 123-4567</p>
+                                            <p className="text-dark-600">+91 90964 08523</p>
                                         </div>
                                     </div>
                                     <div className="flex items-start gap-4">
@@ -221,7 +221,7 @@ const ContactPage = () => {
                                         </div>
                                         <div>
                                             <h4 className="font-semibold text-dark-900">Email</h4>
-                                            <p className="text-dark-600">info@fitpro.gym</p>
+                                            <p className="text-dark-600">syedsahil22072000@gmail.com</p>
                                         </div>
                                     </div>
                                     <div className="flex items-start gap-4">
@@ -244,14 +244,26 @@ const ContactPage = () => {
                                 <h3 className="font-heading text-xl font-bold text-dark-900 mb-4">
                                     Find Us
                                 </h3>
-                                <div className="h-64 bg-dark-100 rounded-xl flex items-center justify-center">
-                                    <div className="text-center text-dark-500">
-                                        <svg className="w-12 h-12 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                                        </svg>
-                                        <p>Google Map Integration</p>
-                                    </div>
+                                <div className="h-64 rounded-xl overflow-hidden relative">
+                                    <iframe
+                                        title="Endless Gym Location"
+                                        src="https://www.google.com/maps?q=21.1703056,79.0768611&z=17&output=embed"
+                                        width="100%"
+                                        height="100%"
+                                        style={{ border: 0 }}
+                                        allowFullScreen
+                                        loading="lazy"
+                                        referrerPolicy="no-referrer-when-downgrade"
+                                    ></iframe>
+
+                                    <a
+                                        href="https://maps.app.goo.gl/ycR8PATKKqC98RM46"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="absolute bottom-3 right-3 bg-white text-dark-950 px-4 py-2 rounded-lg shadow-lg font-semibold text-sm hover:bg-dark-950 hover:text-white transition-all duration-300"
+                                    >
+                                        Open in Google Maps
+                                    </a>
                                 </div>
                             </div>
                         </motion.div>

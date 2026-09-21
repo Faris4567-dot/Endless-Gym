@@ -1,8 +1,7 @@
 import axios from "axios";
 
-const API_URL = "/api";
+const API_URL = import.meta.env.VITE_API_URL + "/api";
 
-// Create axios instance
 const api = axios.create({
   baseURL: API_URL,
   headers: {
@@ -63,15 +62,33 @@ export const memberAPI = {
   update: (id, data) => api.put(`/members/${id}`, data),
   delete: (id) => api.delete(`/members/${id}`),
   getStats: () => api.get("/members/stats"),
+  renew: (id) => api.post(`/members/${id}/renew`),
 };
 
 // Trainer API
 export const trainerAPI = {
   getAll: (params) => api.get("/trainers", { params }),
+
+  getPublic: (params) => api.get("/trainers/public", { params }),
+
   get: (id) => api.get(`/trainers/${id}`),
-  create: (data) => api.post("/trainers", data),
-  update: (id, data) => api.put(`/trainers/${id}`, data),
+
+  create: (data) =>
+    api.post("/trainers", data, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    }),
+
+  update: (id, data) =>
+    api.put(`/trainers/${id}`, data, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    }),
+
   delete: (id) => api.delete(`/trainers/${id}`),
+
   getStats: () => api.get("/trainers/stats"),
 };
 

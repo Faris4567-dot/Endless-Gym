@@ -96,8 +96,8 @@ const ProgramsPage = () => {
                                 key={category.id}
                                 onClick={() => setSelectedCategory(category.id)}
                                 className={`px-6 py-2 rounded-full font-medium transition-all duration-300 ${selectedCategory === category.id
-                                        ? 'bg-primary-600 text-white shadow-lg'
-                                        : 'bg-white text-dark-700 hover:bg-primary-50 hover:text-primary-600'
+                                    ? 'bg-primary-600 text-white shadow-lg'
+                                    : 'bg-white text-dark-700 hover:bg-primary-50 hover:text-primary-600'
                                     }`}
                             >
                                 {category.name}
@@ -257,7 +257,23 @@ const ProgramsPage = () => {
                         </p>
                         <div className="flex flex-col sm:flex-row gap-4 justify-center">
                             <Link to="/contact">
-                                <Button size="lg" variant="secondary" className="bg-white text-primary-600 hover:bg-dark-100">
+                                <Button
+                                    size="lg"
+                                    variant="secondary"
+                                    className="
+        !bg-dark-950
+        !text-white
+        !border-2
+        !border-dark-950
+        hover:!bg-white
+        hover:!text-dark-950
+        hover:!border-white
+        hover:!shadow-xl
+        transition-all
+        duration-300
+        font-semibold
+    "
+                                >
                                     Contact Us
                                 </Button>
                             </Link>

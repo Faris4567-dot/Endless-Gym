@@ -11,6 +11,7 @@ import memberRoutes from "./routes/memberRoutes.js";
 import trainerRoutes from "./routes/trainerRoutes.js";
 import programRoutes from "./routes/programRoutes.js";
 import membershipRoutes from "./routes/membershipRoutes.js";
+import path from "path";
 
 // Load env vars
 dotenv.config();
@@ -32,6 +33,10 @@ app.use("/api/members", memberRoutes);
 app.use("/api/trainers", trainerRoutes);
 app.use("/api/programs", programRoutes);
 app.use("/api/memberships", membershipRoutes);
+app.use(
+  "/uploads",
+  express.static(path.join(process.cwd(), "uploads"))
+);
 
 // Health check
 app.get("/api/health", (req, res) => {
