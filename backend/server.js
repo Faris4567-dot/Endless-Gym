@@ -22,7 +22,12 @@ connectDB();
 const app = express();
 
 // Middleware
-app.use(cors());
+app.use(
+  cors({
+    origin: ["http://localhost:5173", "https://endlessgym.netlify.app"],
+    credentials: true,
+  }),
+);
 app.use(express.json());
 app.use(morgan("dev"));
 
@@ -33,10 +38,7 @@ app.use("/api/members", memberRoutes);
 app.use("/api/trainers", trainerRoutes);
 app.use("/api/programs", programRoutes);
 app.use("/api/memberships", membershipRoutes);
-app.use(
-  "/uploads",
-  express.static(path.join(process.cwd(), "uploads"))
-);
+app.use("/uploads", express.static(path.join(process.cwd(), "uploads")));
 
 // Health check
 app.get("/api/health", (req, res) => {
