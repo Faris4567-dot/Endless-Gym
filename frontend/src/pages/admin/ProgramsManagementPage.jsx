@@ -337,12 +337,12 @@ const ProgramsManagementPage = () => {
     };
 
     return (
-        <div className="space-y-6">
+        <div className="space-y-4 sm:space-y-6">
 
             {/* Header */}
-            <div className="flex items-center justify-between">
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                 <div>
-                    <h2 className="font-heading text-2xl font-bold text-dark-900">
+                    <h2 className="font-heading text-xl sm:text-2xl font-bold text-dark-900">
                         Programs Management
                     </h2>
 
@@ -359,13 +359,13 @@ const ProgramsManagementPage = () => {
             </div>
 
             {/* Programs Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
 
                 {loading ? (
                     [1, 2, 3, 4, 5, 6].map((i) => (
                         <div
                             key={i}
-                            className="bg-white rounded-xl p-6 skeleton h-72"
+                            className="bg-white rounded-xl p-4 sm:p-6 skeleton h-72"
                         ></div>
                     ))
                 ) : programs.length === 0 ? (
@@ -393,7 +393,7 @@ const ProgramsManagementPage = () => {
                             >
 
                                 {/* Image */}
-                                <div className="h-40 overflow-hidden">
+                                <div className="h-36 sm:h-40 overflow-hidden">
                                     <img
                                         src={
                                             program.image ||
@@ -412,12 +412,12 @@ const ProgramsManagementPage = () => {
                                     />
                                 </div>
 
-                                <div className="p-5">
+                                <div className="p-4 sm:p-5">
 
                                     {/* Name + Category */}
-                                    <div className="flex items-center justify-between mb-2 gap-2">
+                                    <div className="flex flex-col items-start sm:flex-row sm:items-center sm:justify-between mb-2 gap-2">
 
-                                        <h3 className="font-heading text-lg font-semibold text-dark-900">
+                                        <h3 className="font-heading text-base sm:text-lg font-semibold text-dark-900 min-w-0 break-words">
                                             {
                                                 program.name
                                             }
@@ -451,7 +451,7 @@ const ProgramsManagementPage = () => {
                                     </p>
 
                                     {/* Schedule + Price */}
-                                    <div className="flex items-center justify-between text-sm text-dark-500 mb-3">
+                                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 text-sm text-dark-500 mb-3">
 
                                         {program.schedule ? (
                                             <span>
@@ -510,7 +510,7 @@ const ProgramsManagementPage = () => {
                                     </div>
 
                                     {/* Actions */}
-                                    <div className="flex gap-2">
+                                    <div className="flex flex-col xs:flex-row sm:flex-row gap-2">
 
                                         <Button
                                             variant="secondary"
@@ -549,7 +549,7 @@ const ProgramsManagementPage = () => {
 
             {/* Modal */}
             {showModal && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-dark-900/50">
+                <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-dark-900/50">
 
                     <motion.div
                         initial={{
@@ -560,12 +560,12 @@ const ProgramsManagementPage = () => {
                             opacity: 1,
                             scale: 1,
                         }}
-                        className="bg-white rounded-2xl shadow-xl w-full max-w-lg max-h-[90vh] overflow-y-auto"
+                        className="bg-white rounded-2xl shadow-xl w-full max-w-lg max-h-[92vh] sm:max-h-[90vh] overflow-y-auto"
                     >
 
                         {/* Modal Header */}
-                        <div className="p-6 border-b border-dark-200">
-                            <h3 className="font-heading text-xl font-bold text-dark-900">
+                        <div className="p-4 sm:p-6 border-b border-dark-200">
+                            <h3 className="font-heading text-lg sm:text-xl font-bold text-dark-900">
                                 {editingProgram
                                     ? "Edit Program"
                                     : "Add New Program"}
@@ -574,7 +574,7 @@ const ProgramsManagementPage = () => {
 
                         <form
                             onSubmit={handleSubmit}
-                            className="p-6 space-y-4"
+                            className="p-4 sm:p-6 space-y-4"
                         >
 
                             {/* Program Name */}
@@ -655,7 +655,7 @@ const ProgramsManagementPage = () => {
                             </div>
 
                             {/* Schedule + Duration */}
-                            <div className="grid grid-cols-2 gap-4">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
 
                                 <Input
                                     label="Schedule"
@@ -692,7 +692,7 @@ const ProgramsManagementPage = () => {
                             </div>
 
                             {/* Trainer + Price */}
-                            <div className="grid grid-cols-2 gap-4">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
 
                                 <div>
                                     <label className="block text-sm font-medium text-dark-700 mb-2">
@@ -801,7 +801,7 @@ const ProgramsManagementPage = () => {
                             </div>
 
                             {/* Buttons */}
-                            <div className="flex gap-3 pt-4">
+                            <div className="flex flex-col sm:flex-row gap-3 pt-4">
 
                                 <Button
                                     type="button"

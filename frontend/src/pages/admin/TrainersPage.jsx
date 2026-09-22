@@ -361,18 +361,18 @@ const TrainersPage = () => {
     };
 
     return (
-        <div className="space-y-6">
+        <div className="space-y-4 sm:space-y-6">
 
             {/* Header */}
 
-            <div className="flex items-center justify-between">
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
 
                 <div>
-                    <h2 className="font-heading text-2xl font-bold text-dark-900">
+                    <h2 className="font-heading text-xl sm:text-2xl font-bold text-dark-900">
                         Trainers Management
                     </h2>
 
-                    <p className="text-dark-500">
+                    <p className="text-dark-500 text-sm sm:text-base">
                         Manage your gym trainers
                     </p>
                 </div>
@@ -387,14 +387,14 @@ const TrainersPage = () => {
 
             {/* Trainers Grid */}
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
 
                 {loading ? (
                     [1, 2, 3, 4, 5, 6].map(
                         (i) => (
                             <div
                                 key={i}
-                                className="bg-white rounded-xl p-6 skeleton h-80"
+                                className="bg-white rounded-xl p-4 sm:p-6 skeleton h-72 sm:h-80"
                             ></div>
                         )
                     )
@@ -427,7 +427,7 @@ const TrainersPage = () => {
 
                                 {/* Image */}
 
-                                <div className="h-48 overflow-hidden">
+                                <div className="h-52 sm:h-48 overflow-hidden">
 
                                     <img
                                         src={getImageUrl(
@@ -443,7 +443,7 @@ const TrainersPage = () => {
 
                                 {/* Content */}
 
-                                <div className="p-6">
+                                <div className="p-4 sm:p-6">
 
                                     <h3 className="font-heading text-lg font-semibold text-dark-900 mb-1">
                                         {
@@ -498,7 +498,7 @@ const TrainersPage = () => {
                                             </div>
                                         )}
 
-                                    <div className="flex gap-2">
+                                    <div className="flex flex-col xs:flex-row sm:flex-row gap-2">
 
                                         <Button
                                             variant="secondary"
@@ -540,7 +540,7 @@ const TrainersPage = () => {
             {/* Modal */}
 
             {showModal && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-dark-900/50">
+                <div className="fixed inset-0 z-50 flex items-start sm:items-center justify-center p-3 sm:p-4 bg-dark-900/50 overflow-y-auto">
 
                     <motion.div
                         initial={{
@@ -551,14 +551,14 @@ const TrainersPage = () => {
                             opacity: 1,
                             scale: 1,
                         }}
-                        className="bg-white rounded-2xl shadow-xl w-full max-w-lg max-h-[90vh] overflow-y-auto"
+                        className="bg-white rounded-2xl shadow-xl w-full max-w-lg max-h-[94vh] sm:max-h-[90vh] overflow-y-auto my-2 sm:my-0"
                     >
 
                         {/* Modal Header */}
 
-                        <div className="p-6 border-b border-dark-200">
+                        <div className="p-4 sm:p-6 border-b border-dark-200">
 
-                            <h3 className="font-heading text-xl font-bold text-dark-900">
+                            <h3 className="font-heading text-lg sm:text-xl font-bold text-dark-900">
 
                                 {editingTrainer
                                     ? "Edit Trainer"
@@ -574,7 +574,7 @@ const TrainersPage = () => {
                             onSubmit={
                                 handleSubmit
                             }
-                            className="p-6 space-y-4"
+                            className="p-4 sm:p-6 space-y-4"
                         >
 
                             <Input
@@ -611,7 +611,7 @@ const TrainersPage = () => {
                                 required
                             />
 
-                            <div className="grid grid-cols-2 gap-4">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
 
                                 <Input
                                     label="Years of Experience"
@@ -714,7 +714,7 @@ const TrainersPage = () => {
                                         handleImageChange
                                     }
                                     className="block w-full text-sm text-dark-600
-                                    file:mr-4
+                                    file:mr-2 sm:file:mr-4
                                     file:py-2
                                     file:px-4
                                     file:rounded-lg
@@ -741,7 +741,7 @@ const TrainersPage = () => {
                                         Image Preview
                                     </p>
 
-                                    <div className="relative w-full h-56 rounded-xl overflow-hidden border border-dark-200 bg-dark-50">
+                                    <div className="relative w-full h-48 sm:h-56 rounded-xl overflow-hidden border border-dark-200 bg-dark-50">
 
                                         <img
                                             src={

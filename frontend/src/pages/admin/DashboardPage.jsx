@@ -218,38 +218,38 @@ const DashboardPage = () => {
   ];
 
   return (
-    <div className="space-y-6">
+    <div className="w-full min-w-0 space-y-4 sm:space-y-6 overflow-x-hidden">
 
       {/* Stats Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 min-[480px]:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
         {statCards.map((stat, index) => (
           <motion.div
             key={stat.title}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: index * 0.1 }}
-            className="bg-white rounded-xl p-6 shadow-sm border border-dark-100"
+            className="w-full min-w-0 bg-white rounded-xl p-4 sm:p-6 shadow-sm border border-dark-100"
           >
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-dark-500 text-sm">
+                <p className="text-dark-500 text-xs sm:text-sm">
                   {stat.title}
                 </p>
 
-                <p className="text-2xl font-bold text-dark-900 mt-1">
+                <p className="text-xl sm:text-2xl font-bold text-dark-900 mt-1">
                   {loading ? "..." : stat.value}
                 </p>
 
-                <p className="text-green-600 text-sm mt-1">
+                <p className="text-green-600 text-xs sm:text-sm mt-1">
                   Live data
                 </p>
               </div>
 
               <div
-                className={`w-12 h-12 ${stat.color} rounded-xl flex items-center justify-center`}
+                className={`w-10 h-10 sm:w-12 sm:h-12 shrink-0 ${stat.color} rounded-xl flex items-center justify-center`}
               >
                 <svg
-                  className="w-6 h-6 text-white"
+                  className="w-5 h-5 sm:w-6 sm:h-6 text-white"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -268,20 +268,20 @@ const DashboardPage = () => {
       </div>
 
       {/* Charts */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
 
         {/* Member Growth */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4 }}
-          className="bg-white rounded-xl p-6 shadow-sm border border-dark-100"
+          className="w-full min-w-0 bg-white rounded-xl p-4 sm:p-6 shadow-sm border border-dark-100"
         >
-          <h3 className="font-heading font-semibold text-lg text-dark-900 mb-4">
+          <h3 className="font-heading font-semibold text-base sm:text-lg text-dark-900 mb-4">
             Member Growth
           </h3>
 
-          <ResponsiveContainer width="100%" height={300}>
+          <ResponsiveContainer width="100%" height={240}>
             <BarChart data={monthlyData}>
               <CartesianGrid
                 strokeDasharray="3 3"
@@ -291,11 +291,15 @@ const DashboardPage = () => {
               <XAxis
                 dataKey="name"
                 stroke="#6b7280"
+                tick={{ fontSize: 11 }}
+                interval="preserveStartEnd"
               />
 
               <YAxis
                 stroke="#6b7280"
                 allowDecimals={false}
+                width={32}
+                tick={{ fontSize: 11 }}
               />
 
               <Tooltip
@@ -320,20 +324,20 @@ const DashboardPage = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5 }}
-          className="bg-white rounded-xl p-6 shadow-sm border border-dark-100"
+          className="w-full min-w-0 bg-white rounded-xl p-4 sm:p-6 shadow-sm border border-dark-100"
         >
-          <h3 className="font-heading font-semibold text-lg text-dark-900 mb-4">
+          <h3 className="font-heading font-semibold text-base sm:text-lg text-dark-900 mb-4">
             Membership Status
           </h3>
 
-          <ResponsiveContainer width="100%" height={300}>
+          <ResponsiveContainer width="100%" height={240}>
             <PieChart>
               <Pie
                 data={membershipData}
                 cx="50%"
                 cy="50%"
-                innerRadius={60}
-                outerRadius={100}
+                innerRadius="22%"
+                outerRadius="38%"
                 paddingAngle={5}
                 dataKey="value"
               >
@@ -355,11 +359,11 @@ const DashboardPage = () => {
             </PieChart>
           </ResponsiveContainer>
 
-          <div className="flex justify-center gap-6 mt-4">
+          <div className="flex flex-wrap justify-center gap-x-4 gap-y-2 sm:gap-6 mt-4">
             {membershipData.map((item) => (
               <div
                 key={item.name}
-                className="flex items-center gap-2"
+                className="flex items-center gap-2 min-w-0"
               >
                 <div
                   className="w-3 h-3 rounded-full"
@@ -382,16 +386,16 @@ const DashboardPage = () => {
       </div>
 
       {/* Recent Activity */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
 
         {/* Recent Members */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.6 }}
-          className="bg-white rounded-xl p-6 shadow-sm border border-dark-100"
+          className="w-full min-w-0 bg-white rounded-xl p-4 sm:p-6 shadow-sm border border-dark-100"
         >
-          <h3 className="font-heading font-semibold text-lg text-dark-900 mb-4">
+          <h3 className="font-heading font-semibold text-base sm:text-lg text-dark-900 mb-4">
             Recent Members
           </h3>
 
@@ -400,28 +404,28 @@ const DashboardPage = () => {
               recentMembers.map((member) => (
                 <div
                   key={member._id}
-                  className="flex items-center justify-between py-3 border-b border-dark-100 last:border-0"
+                  className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 sm:gap-3 py-3 border-b border-dark-100 last:border-0 min-w-0"
                 >
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 bg-primary-100 rounded-full flex items-center justify-center">
+                  <div className="flex items-center gap-3 min-w-0">
+                    <div className="w-10 h-10 shrink-0 bg-primary-100 rounded-full flex items-center justify-center">
                       <span className="text-primary-600 font-semibold">
                         {member.name?.charAt(0)?.toUpperCase()}
                       </span>
                     </div>
 
                     <div>
-                      <p className="font-medium text-dark-900">
+                      <p className="font-medium text-dark-900 truncate">
                         {member.name}
                       </p>
 
-                      <p className="text-sm text-dark-500">
+                      <p className="text-sm text-dark-500 truncate max-w-full">
                         {member.email}
                       </p>
                     </div>
                   </div>
 
                   <span
-                    className={`px-3 py-1 rounded-full text-xs font-medium ${
+                    className={`self-start sm:self-auto shrink-0 px-3 py-1 rounded-full text-xs font-medium ${
                       member.membershipStatus === "active"
                         ? "bg-green-100 text-green-700"
                         : member.membershipStatus === "pending"
@@ -446,9 +450,9 @@ const DashboardPage = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.7 }}
-          className="bg-white rounded-xl p-6 shadow-sm border border-dark-100"
+          className="w-full min-w-0 bg-white rounded-xl p-4 sm:p-6 shadow-sm border border-dark-100"
         >
-          <h3 className="font-heading font-semibold text-lg text-dark-900 mb-4">
+          <h3 className="font-heading font-semibold text-base sm:text-lg text-dark-900 mb-4">
             Recent Inquiries
           </h3>
 
@@ -457,20 +461,20 @@ const DashboardPage = () => {
               recentInquiries.map((inquiry) => (
                 <div
                   key={inquiry._id}
-                  className="flex items-center justify-between py-3 border-b border-dark-100 last:border-0"
+                  className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 sm:gap-3 py-3 border-b border-dark-100 last:border-0 min-w-0"
                 >
                   <div>
-                    <p className="font-medium text-dark-900">
+                    <p className="font-medium text-dark-900 truncate">
                       {inquiry.name}
                     </p>
 
-                    <p className="text-sm text-dark-500">
+                    <p className="text-sm text-dark-500 truncate max-w-full">
                       {inquiry.email}
                     </p>
                   </div>
 
                   <span
-                    className={`px-3 py-1 rounded-full text-xs font-medium ${
+                    className={`self-start sm:self-auto shrink-0 px-3 py-1 rounded-full text-xs font-medium ${
                       inquiry.status === "new"
                         ? "bg-blue-100 text-blue-700"
                         : inquiry.status === "contacted"

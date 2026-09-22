@@ -176,12 +176,12 @@ const InquiriesPage = () => {
     };
 
     return (
-        <div className="space-y-6">
+        <div className="space-y-4 sm:space-y-6">
 
             {/* Header */}
-            <div className="flex items-center justify-between">
+            <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
                 <div>
-                    <h2 className="font-heading text-2xl font-bold text-dark-900">
+                    <h2 className="font-heading text-xl sm:text-2xl font-bold text-dark-900">
                         Inquiries Management
                     </h2>
 
@@ -192,48 +192,48 @@ const InquiriesPage = () => {
             </div>
 
             {/* Stats */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
 
                 {/* Total */}
-                <div className="bg-white rounded-xl p-4 shadow-sm border border-dark-100">
-                    <p className="text-dark-500 text-sm">
+                <div className="bg-white rounded-xl p-3 sm:p-4 shadow-sm border border-dark-100">
+                    <p className="text-dark-500 text-xs sm:text-sm">
                         Total Inquiries
                     </p>
 
-                    <p className="text-2xl font-bold text-dark-900">
+                    <p className="text-xl sm:text-2xl font-bold text-dark-900">
                         {stats.total}
                     </p>
                 </div>
 
                 {/* New */}
-                <div className="bg-white rounded-xl p-4 shadow-sm border border-dark-100">
-                    <p className="text-dark-500 text-sm">
+                <div className="bg-white rounded-xl p-3 sm:p-4 shadow-sm border border-dark-100">
+                    <p className="text-dark-500 text-xs sm:text-sm">
                         New
                     </p>
 
-                    <p className="text-2xl font-bold text-blue-600">
+                    <p className="text-xl sm:text-2xl font-bold text-blue-600">
                         {stats.new}
                     </p>
                 </div>
 
                 {/* Contacted */}
-                <div className="bg-white rounded-xl p-4 shadow-sm border border-dark-100">
-                    <p className="text-dark-500 text-sm">
+                <div className="bg-white rounded-xl p-3 sm:p-4 shadow-sm border border-dark-100">
+                    <p className="text-dark-500 text-xs sm:text-sm">
                         Contacted
                     </p>
 
-                    <p className="text-2xl font-bold text-yellow-600">
+                    <p className="text-xl sm:text-2xl font-bold text-yellow-600">
                         {stats.contacted}
                     </p>
                 </div>
 
                 {/* Converted */}
-                <div className="bg-white rounded-xl p-4 shadow-sm border border-dark-100">
-                    <p className="text-dark-500 text-sm">
+                <div className="bg-white rounded-xl p-3 sm:p-4 shadow-sm border border-dark-100">
+                    <p className="text-dark-500 text-xs sm:text-sm">
                         Converted
                     </p>
 
-                    <p className="text-2xl font-bold text-green-600">
+                    <p className="text-xl sm:text-2xl font-bold text-green-600">
                         {stats.converted}
                     </p>
                 </div>
@@ -241,7 +241,7 @@ const InquiriesPage = () => {
             </div>
 
             {/* Filter */}
-            <div className="flex gap-2 flex-wrap">
+            <div className="flex gap-2 flex-wrap overflow-x-auto pb-1">
 
                 {[
                     "all",
@@ -255,7 +255,7 @@ const InquiriesPage = () => {
                         onClick={() =>
                             setFilter(status)
                         }
-                        className={`px-4 py-2 rounded-lg font-medium transition-colors ${
+                        className={`px-3 sm:px-4 py-2 rounded-lg font-medium text-sm sm:text-base whitespace-nowrap transition-colors ${
                             filter === status
                                 ? "bg-primary-600 text-white"
                                 : "bg-white text-dark-700 hover:bg-dark-50 border border-dark-200"
@@ -275,9 +275,9 @@ const InquiriesPage = () => {
             {/* Inquiries List */}
             <div className="bg-white rounded-xl shadow-sm border border-dark-100 overflow-hidden">
 
-                <div className="overflow-x-auto">
+                <div className="overflow-x-auto w-full">
 
-                    <table className="w-full">
+                    <table className="w-full min-w-[760px]">
 
                         <thead className="bg-dark-50 border-b border-dark-200">
 
@@ -357,11 +357,11 @@ const InquiriesPage = () => {
                                         >
 
                                             {/* Customer */}
-                                            <td className="py-4 px-6">
+                                            <td className="py-3 sm:py-4 px-4 sm:px-6">
 
-                                                <div className="flex items-center gap-3">
+                                                <div className="flex items-center gap-2 sm:gap-3 min-w-0">
 
-                                                    <div className="w-10 h-10 bg-primary-100 rounded-full flex items-center justify-center">
+                                                    <div className="w-9 h-9 sm:w-10 sm:h-10 flex-shrink-0 bg-primary-100 rounded-full flex items-center justify-center">
 
                                                         <span className="text-primary-600 font-semibold">
                                                             {inquiry.name
@@ -397,9 +397,9 @@ const InquiriesPage = () => {
                                             </td>
 
                                             {/* Contact */}
-                                            <td className="py-4 px-6">
+                                            <td className="py-3 sm:py-4 px-4 sm:px-6">
 
-                                                <p className="text-dark-700">
+                                                <p className="text-dark-700 break-words">
                                                     {
                                                         inquiry.email
                                                     }
@@ -414,7 +414,7 @@ const InquiriesPage = () => {
                                             </td>
 
                                             {/* Goal */}
-                                            <td className="py-4 px-6">
+                                            <td className="py-3 sm:py-4 px-4 sm:px-6">
 
                                                 <span className="text-dark-600 capitalize">
                                                     {inquiry.fitnessGoal
@@ -428,7 +428,7 @@ const InquiriesPage = () => {
                                             </td>
 
                                             {/* Status */}
-                                            <td className="py-4 px-6">
+                                            <td className="py-3 sm:py-4 px-4 sm:px-6">
 
                                                 <select
                                                     value={
@@ -479,16 +479,16 @@ const InquiriesPage = () => {
                                             </td>
 
                                             {/* Date */}
-                                            <td className="py-4 px-6 text-dark-500">
+                                            <td className="py-3 sm:py-4 px-4 sm:px-6 text-dark-500">
                                                 {formatDate(
                                                     inquiry.createdAt
                                                 )}
                                             </td>
 
                                             {/* Actions */}
-                                            <td className="py-4 px-6 text-right">
+                                            <td className="py-3 sm:py-4 px-4 sm:px-6 text-right">
 
-                                                <div className="flex items-center justify-end gap-2">
+                                                <div className="flex items-center justify-end gap-1 sm:gap-2">
 
                                                     {/* Mark Contacted */}
                                                     {inquiry.status ===

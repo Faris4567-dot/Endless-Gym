@@ -132,76 +132,89 @@ const HomePage = () => {
         <>
             <Header />
 
-            {/* Hero Section */}
-            <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-                {/* Background */}
-                <div className="absolute inset-0 bg-dark-950">
-                    <div className="absolute inset-0 bg-gradient-to-r from-dark-950/95 via-dark-900/80 to-dark-950/90 z-10"></div>
-                    <img
-                        src="/assets/gym banner.jpg"
-                        alt="Endless Gym"
-                        className="w-full h-full object-cover"
-                    />
-                </div>
+  {/* Hero Section */}
+<section className="relative min-h-[780px] sm:min-h-[820px] md:min-h-[860px] lg:min-h-[800px] xl:min-h-screen flex items-center justify-center overflow-hidden">
+    {/* Background */}
+    <div className="absolute inset-0 bg-dark-950">
+        <div className="absolute inset-0 bg-gradient-to-r from-dark-950/95 via-dark-900/80 to-dark-950/90 z-10"></div>
 
-                {/* Content */}
-                <div className="relative z-20 container-custom text-center text-white pt-20 -translate-y-16">
-                    <motion.div
-                        initial={{ opacity: 0, y: 30 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8 }}
+        <img
+            src="/assets/gym banner.jpg"
+            alt="Endless Gym"
+            className="w-full h-full object-cover"
+        />
+    </div>
+
+    {/* Content */}
+<div className="relative z-20 container-custom text-center text-white px-4 sm:px-6 pt-28 sm:pt-32 md:pt-36 lg:pt-40 pb-36 sm:pb-40 md:pb-44">        <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+        >
+
+            <span className="inline-block px-3 sm:px-4 py-2 bg-primary-600/20 border border-primary-500/30 rounded-full text-primary-400 text-xs sm:text-sm font-medium mb-4 sm:mb-6">
+                Welcome to FitPro Gym
+            </span>
+
+            <h1 className="font-heading text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold mb-4 sm:mb-6 leading-tight">
+                Transform Your Body,
+                <span className="block gradient-text">
+                    Transform Your Life
+                </span>
+            </h1>
+
+            <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-dark-300 max-w-2xl mx-auto mb-7 sm:mb-10 px-2 sm:px-4 leading-relaxed">
+                Join the ultimate fitness experience with state-of-the-art equipment,
+                expert trainers, and a supportive community.
+            </p>
+
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-stretch sm:items-center px-2 sm:px-4">
+                <Link to="/membership">
+                    <Button size="xl" variant="primary">
+                        Join Now
+                    </Button>
+                </Link>
+
+                <Link to="/programs">
+                    <Button
+                        size="xl"
+                        variant="outline"
+                        className="border-white text-white hover:bg-white hover:text-dark-900"
                     >
-                        <span className="inline-block px-4 py-2 bg-primary-600/20 border border-primary-500/30 rounded-full text-primary-400 text-sm font-medium mb-6">
-                            Welcome to FitPro Gym
-                        </span>
+                        Explore Programs
+                    </Button>
+                </Link>
+            </div>
 
-                        <h1 className="font-heading text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
-                            Transform Your Body,
-                            <span className="block gradient-text">Transform Your Life</span>
-                        </h1>
+        </motion.div>
+    </div>
 
-                        <p className="text-xl md:text-2xl text-dark-300 max-w-2xl mx-auto mb-10">
-                            Join the ultimate fitness experience with state-of-the-art equipment, expert trainers, and a supportive community.
-                        </p>
+    {/* Stats Bar */}
+    <div className="absolute bottom-0 left-0 right-0 bg-dark-950/80 backdrop-blur-md py-5 sm:py-6 md:py-8 z-20">
+        <div className="container-custom">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-x-3 sm:gap-x-8 md:gap-x-12 lg:gap-x-16 gap-y-5 sm:gap-y-7 md:gap-y-10">
+                {stats.map((stat, index) => (
+                    <motion.div
+                        key={stat.label}
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.5 + index * 0.1 }}
+                        className="text-center px-2 sm:px-4 md:px-6 lg:px-8 py-0"
+                    >
+                        <div className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-heading font-bold text-primary-500 mb-1 sm:mb-2">
+                            {stat.value}
+                        </div>
 
-                        <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                            <Link to="/membership">
-                                <Button size="xl" variant="primary">
-                                    Join Now
-                                </Button>
-                            </Link>
-
-                            <Link to="/programs">
-                                <Button size="xl" variant="outline" className="border-white text-white hover:bg-white hover:text-dark-900">
-                                    Explore Programs
-                                </Button>
-                            </Link>
+                        <div className="text-dark-400">
+                            {stat.label}
                         </div>
                     </motion.div>
-                </div>
+                ))}
+            </div>
+        </div>
+    </div>
 
-                {/* Stats Bar */}
-                <div className="absolute bottom-0 left-0 right-0 bg-dark-950/80 backdrop-blur-md py-8 z-20">
-                    <div className="container-custom">
-                        <div className="grid grid-cols-2 md:grid-cols-4 gap-x-16 gap-y-10">
-                            {stats.map((stat, index) => (
-                                <motion.div
-                                    key={stat.label}
-                                    initial={{ opacity: 0, y: 20 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    transition={{ delay: 0.5 + index * 0.1 }}
-                                    className="text-center px-8 py-0"
-                                >
-                                    <div className="text-4xl md:text-5xl font-heading font-bold text-primary-500 mb-2">
-                                        {stat.value}
-                                    </div>
-                                    <div className="text-dark-400">{stat.label}</div>
-                                </motion.div>
-                            ))}
-                        </div>
-                    </div>
-                </div>
-            </section>
+</section>
             {/* Programs Section */}
             <section className="section-padding bg-dark-50">
                 <div className="container-custom">
@@ -209,18 +222,18 @@ const HomePage = () => {
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        className="text-center mb-12"
+                        className="text-center mb-8 sm:mb-10 md:mb-12"
                     >
-                        <span className="text-primary-600 font-semibold text-sm uppercase tracking-wider">Our Programs</span>
-                        <h2 className="font-heading text-4xl md:text-5xl font-bold text-dark-900 mt-2">
+                        <span className="text-primary-600 font-semibold text-xs sm:text-sm uppercase tracking-wider">Our Programs</span>
+                        <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl font-bold text-dark-900 mt-2 leading-tight px-2">
                             Find Your Perfect <span className="gradient-text">Workout</span>
                         </h2>
-                        <p className="text-dark-600 mt-4 max-w-2xl mx-auto">
+                        <p className="text-dark-600 mt-3 sm:mt-4 max-w-2xl mx-auto px-4 leading-relaxed">
                             From high-intensity training to mindful yoga, we have programs for every fitness goal and level.
                         </p>
                     </motion.div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
                         {programs.map((program, index) => (
                             <motion.div
                                 key={program._id}
@@ -230,7 +243,7 @@ const HomePage = () => {
                                 transition={{ delay: index * 0.1 }}
                                 className="card group"
                             >
-                                <div className="relative h-48 overflow-hidden">
+                                <div className="relative h-52 sm:h-48 overflow-hidden">
                                     <img
                                         src={program.image || 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=400&h=300&fit=crop'}
                                         alt={program.name}
@@ -274,13 +287,13 @@ const HomePage = () => {
             {/* About Preview Section */}
             <section className="section-padding bg-dark-900 text-white">
                 <div className="container-custom">
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-10 lg:gap-12 items-center">
                         <motion.div
                             initial={{ opacity: 0, x: -30 }}
                             whileInView={{ opacity: 1, x: 0 }}
                             viewport={{ once: true }}
                         >
-                            <span className="text-primary-400 font-semibold text-sm uppercase tracking-wider">About FitPro</span>
+                            <span className="text-primary-400 font-semibold text-xs sm:text-sm uppercase tracking-wider">About FitPro</span>
                             <h2 className="font-heading text-4xl md:text-5xl font-bold mt-2 mb-6">
                                 More Than Just a <span className="text-primary-500">Gym</span>
                             </h2>
@@ -326,7 +339,7 @@ const HomePage = () => {
                             viewport={{ once: true }}
                             className="relative"
                         >
-                            <div className="grid grid-cols-2 gap-4">
+                            <div className="grid grid-cols-2 gap-3 sm:gap-4">
                                 <div className="space-y-4">
                                     <img
                                         src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=300&h=400&fit=crop"
@@ -339,7 +352,7 @@ const HomePage = () => {
                                         className="rounded-2xl"
                                     />
                                 </div>
-                                <div className="space-y-4 pt-8">
+                                <div className="space-y-3 sm:space-y-4 pt-5 sm:pt-8">
                                     <img
                                         src="https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?w=300&h=250&fit=crop"
                                         alt="Workout"
@@ -364,18 +377,18 @@ const HomePage = () => {
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        className="text-center mb-12"
+                        className="text-center mb-8 sm:mb-10 md:mb-12"
                     >
-                        <span className="text-primary-600 font-semibold text-sm uppercase tracking-wider">Our Team</span>
-                        <h2 className="font-heading text-4xl md:text-5xl font-bold text-dark-900 mt-2">
+                        <span className="text-primary-600 font-semibold text-xs sm:text-sm uppercase tracking-wider">Our Team</span>
+                        <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl font-bold text-dark-900 mt-2 leading-tight px-2">
                             Meet Our Expert <span className="gradient-text">Trainers</span>
                         </h2>
-                        <p className="text-dark-600 mt-4 max-w-2xl mx-auto">
+                        <p className="text-dark-600 mt-3 sm:mt-4 max-w-2xl mx-auto px-4 leading-relaxed">
                             Our certified trainers are passionate about helping you achieve your fitness goals with personalized guidance and support.
                         </p>
                     </motion.div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
                         {trainers.map((trainer, index) => (
                             <motion.div
                                 key={trainer._id}
@@ -424,24 +437,24 @@ const HomePage = () => {
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        className="text-center mb-12"
+                        className="text-center mb-8 sm:mb-10 md:mb-12"
                     >
-                        <span className="text-primary-600 font-semibold text-sm uppercase tracking-wider">
+                        <span className="text-primary-600 font-semibold text-xs sm:text-sm uppercase tracking-wider">
                             Our Facilities
                         </span>
 
-                        <h2 className="font-heading text-4xl md:text-5xl font-bold text-dark-900 mt-2">
+                        <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl font-bold text-dark-900 mt-2 leading-tight px-2">
                             Everything You Need To
                             <span className="gradient-text"> Get Stronger</span>
                         </h2>
 
-                        <p className="text-dark-600 mt-4 max-w-2xl mx-auto">
+                        <p className="text-dark-600 mt-3 sm:mt-4 max-w-2xl mx-auto px-4 leading-relaxed">
                             Train with modern equipment and dedicated spaces designed for
                             strength, conditioning and recovery.
                         </p>
                     </motion.div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
 
                         {[
                             {
@@ -473,7 +486,7 @@ const HomePage = () => {
                                 transition={{ delay: index * 0.1 }}
                                 className="card overflow-hidden group"
                             >
-                                <div className="relative h-56 overflow-hidden">
+                                <div className="relative h-52 sm:h-56 overflow-hidden">
                                     <img
                                         src={facility.image}
                                         alt={facility.title}
@@ -503,14 +516,14 @@ const HomePage = () => {
             <section className="section-padding bg-white">
                 <div className="container-custom">
 
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-10 lg:gap-12 items-center">
 
                         <motion.div
                             initial={{ opacity: 0, x: -30 }}
                             whileInView={{ opacity: 1, x: 0 }}
                             viewport={{ once: true }}
                         >
-                            <span className="text-primary-600 font-semibold text-sm uppercase tracking-wider">
+                            <span className="text-primary-600 font-semibold text-xs sm:text-sm uppercase tracking-wider">
                                 Why Choose Us
                             </span>
 
@@ -592,7 +605,7 @@ const HomePage = () => {
                             <img
                                 src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=900&h=700&fit=crop"
                                 alt="Fitness training"
-                                className="w-full h-[500px] object-cover rounded-2xl"
+                                className="w-full h-[320px] sm:h-[400px] lg:h-[500px] object-cover rounded-2xl"
                             />
 
                             <div className="absolute bottom-6 left-6 right-6 bg-dark-900/90 backdrop-blur-sm rounded-xl p-6 text-white">
@@ -639,18 +652,18 @@ const HomePage = () => {
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        className="text-center mb-12"
+                        className="text-center mb-8 sm:mb-10 md:mb-12"
                     >
-                        <span className="text-primary-600 font-semibold text-sm uppercase tracking-wider">Membership Plans</span>
-                        <h2 className="font-heading text-4xl md:text-5xl font-bold text-dark-900 mt-2">
+                        <span className="text-primary-600 font-semibold text-xs sm:text-sm uppercase tracking-wider">Membership Plans</span>
+                        <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl font-bold text-dark-900 mt-2 leading-tight px-2">
                             Choose Your <span className="gradient-text">Plan</span>
                         </h2>
-                        <p className="text-dark-600 mt-4 max-w-2xl mx-auto">
+                        <p className="text-dark-600 mt-3 sm:mt-4 max-w-2xl mx-auto px-4 leading-relaxed">
                             Flexible membership options to fit your lifestyle and fitness goals. Start your journey today!
                         </p>
                     </motion.div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6 md:gap-8">
                         {memberships.map((plan, index) => (
                             <motion.div
                                 key={plan._id}
@@ -665,7 +678,7 @@ const HomePage = () => {
                                     y: -8,
                                     scale: 1.02,
                                 }}
-                                className="bg-white rounded-2xl shadow-lg overflow-hidden transition-shadow duration-300 hover:shadow-2xl"
+                                className="bg-white rounded-2xl shadow-lg overflow-hidden transition-shadow duration-300 hover:shadow-2xl h-full"
                             >
                                 {/* Your existing plan card content */}
 
@@ -751,15 +764,15 @@ const HomePage = () => {
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        className="text-center mb-12"
+                        className="text-center mb-8 sm:mb-10 md:mb-12"
                     >
-                        <span className="text-primary-400 font-semibold text-sm uppercase tracking-wider">Testimonials</span>
-                        <h2 className="font-heading text-4xl md:text-5xl font-bold mt-2">
+                        <span className="text-primary-400 font-semibold text-xs sm:text-sm uppercase tracking-wider">Testimonials</span>
+                        <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl font-bold mt-2 leading-tight px-2">
                             What Our <span className="text-primary-500">Members Say</span>
                         </h2>
                     </motion.div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6 md:gap-8">
                         {testimonials.map((testimonial, index) => (
                             <motion.div
                                 key={testimonial.name}
@@ -767,7 +780,7 @@ const HomePage = () => {
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true }}
                                 transition={{ delay: index * 0.1 }}
-                                className="bg-dark-800 rounded-2xl p-8"
+                                className="bg-dark-800 rounded-2xl p-5 sm:p-6 md:p-8 h-full"
                             >
                                 <div className="flex items-center gap-4 mb-6">
                                     <img
@@ -790,17 +803,17 @@ const HomePage = () => {
             {/* Inquiry Form Section */}
             <section className="section-padding bg-gradient-to-br from-primary-600 to-primary-800">
                 <div className="container-custom">
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-10 lg:gap-12 items-center">
                         <motion.div
                             initial={{ opacity: 0, x: -30 }}
                             whileInView={{ opacity: 1, x: 0 }}
                             viewport={{ once: true }}
                             className="text-white"
                         >
-                            <h2 className="font-heading text-4xl md:text-5xl font-bold mb-6">
+                            <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl font-bold mb-5 sm:mb-6 leading-tight">
                                 Start Your Fitness Journey Today
                             </h2>
-                            <p className="text-primary-100 text-lg mb-8">
+                            <p className="text-primary-100 text-base sm:text-lg mb-6 sm:mb-8 leading-relaxed">
                                 Fill out the form and our team will get in touch with you within 24 hours to discuss your fitness goals.
                             </p>
                             <div className="space-y-4">
@@ -827,7 +840,7 @@ const HomePage = () => {
                             initial={{ opacity: 0, x: 30 }}
                             whileInView={{ opacity: 1, x: 0 }}
                             viewport={{ once: true }}
-                            className="bg-white rounded-2xl p-8 shadow-2xl"
+                            className="bg-white rounded-2xl p-5 sm:p-6 md:p-8 shadow-2xl"
                         >
                             {formSuccess ? (
                                 <div className="text-center py-8">

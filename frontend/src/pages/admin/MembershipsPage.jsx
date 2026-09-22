@@ -276,7 +276,7 @@ const MembershipsPage = () => {
         <div className="space-y-6">
 
             {/* Header */}
-            <div className="flex items-center justify-between">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                 <div>
                     <h2 className="font-heading text-2xl font-bold text-dark-900">
                         Membership Plans
@@ -293,13 +293,13 @@ const MembershipsPage = () => {
             </div>
 
             {/* Plans Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
 
                 {loading ? (
                     [1, 2, 3].map((i) => (
                         <div
                             key={i}
-                            className="bg-white rounded-xl p-6 skeleton h-80"
+                            className="bg-white rounded-xl p-4 sm:p-6 skeleton h-72 sm:h-80"
                         ></div>
                     ))
                 ) : memberships.length === 0 ? (
@@ -321,7 +321,7 @@ const MembershipsPage = () => {
                             transition={{
                                 delay: index * 0.1,
                             }}
-                            className={`bg-white rounded-xl shadow-sm border border-dark-100 overflow-hidden relative ${
+                            className={`bg-white rounded-xl shadow-sm border border-dark-100 overflow-hidden relative h-full ${
                                 plan.isPopular
                                     ? "ring-2 ring-primary-500"
                                     : ""
@@ -336,9 +336,9 @@ const MembershipsPage = () => {
                                 </div>
                             )}
 
-                            <div className="p-6">
+                            <div className="p-4 sm:p-6">
 
-                                <h3 className="font-heading text-xl font-bold text-dark-900 mb-2">
+                                <h3 className="font-heading text-lg sm:text-xl font-bold text-dark-900 mb-2">
                                     {plan.name}
                                 </h3>
 
@@ -348,7 +348,7 @@ const MembershipsPage = () => {
                                 </p>
 
                                 <div className="mb-4">
-                                    <span className="text-4xl font-heading font-bold text-dark-900">
+                                    <span className="text-3xl sm:text-4xl font-heading font-bold text-dark-900">
                                         ₹{plan.price}
                                     </span>
 
@@ -427,7 +427,7 @@ const MembershipsPage = () => {
                                 </ul>
 
                                 {/* Actions */}
-                                <div className="flex gap-2">
+                                <div className="flex flex-col sm:flex-row gap-2">
                                     <Button
                                         variant="secondary"
                                         size="sm"
@@ -462,7 +462,7 @@ const MembershipsPage = () => {
 
             {/* Modal */}
             {showModal && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-dark-900/50">
+                <div className="fixed inset-0 z-50 flex items-start sm:items-center justify-center p-3 sm:p-4 bg-dark-900/50 overflow-y-auto">
 
                     <motion.div
                         initial={{
@@ -473,12 +473,12 @@ const MembershipsPage = () => {
                             opacity: 1,
                             scale: 1,
                         }}
-                        className="bg-white rounded-2xl shadow-xl w-full max-w-lg max-h-[90vh] overflow-y-auto"
+                        className="bg-white rounded-2xl shadow-xl w-full max-w-lg max-h-[94vh] sm:max-h-[90vh] overflow-y-auto"
                     >
 
                         {/* Modal Header */}
-                        <div className="p-6 border-b border-dark-200">
-                            <h3 className="font-heading text-xl font-bold text-dark-900">
+                        <div className="p-4 sm:p-6 border-b border-dark-200">
+                            <h3 className="font-heading text-lg sm:text-xl font-bold text-dark-900">
                                 {editingMembership
                                     ? "Edit Plan"
                                     : "Add New Plan"}
@@ -487,7 +487,7 @@ const MembershipsPage = () => {
 
                         <form
                             onSubmit={handleSubmit}
-                            className="p-6 space-y-4"
+                            className="p-4 sm:p-6 space-y-4"
                         >
 
                             {/* Name */}
@@ -568,7 +568,7 @@ const MembershipsPage = () => {
                             </div>
 
                             {/* Price */}
-                            <div className="grid grid-cols-2 gap-4">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
 
                                 <Input
                                     label="Price (₹)"
@@ -689,7 +689,7 @@ Group Classes`}
                             </div>
 
                             {/* Buttons */}
-                            <div className="flex gap-3 pt-4">
+                            <div className="flex flex-col-reverse sm:flex-row gap-3 pt-4">
 
                                 <Button
                                     type="button"

@@ -131,12 +131,12 @@ const MembersPage = () => {
     };
 
     return (
-        <div className="space-y-6">
+        <div className="space-y-4 sm:space-y-6 min-w-0">
             {/* Header */}
-            <div className="flex items-center justify-between">
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                 <div>
-                    <h2 className="font-heading text-2xl font-bold text-dark-900">Members Management</h2>
-                    <p className="text-dark-500">Manage your gym members</p>
+                    <h2 className="font-heading text-xl sm:text-2xl font-bold text-dark-900">Members Management</h2>
+                    <p className="text-dark-500 text-sm sm:text-base">Manage your gym members</p>
                 </div>
                 <Button onClick={() => setShowModal(true)}>
                     Add New Member
@@ -144,28 +144,28 @@ const MembersPage = () => {
             </div>
 
             {/* Members Table */}
-            <div className="bg-white rounded-xl shadow-sm border border-dark-100 overflow-hidden">
-                <div className="overflow-x-auto">
-                    <table className="w-full">
+            <div className="bg-white rounded-xl shadow-sm border border-dark-100 overflow-hidden w-full min-w-0">
+                <div className="overflow-x-auto max-w-full">
+                    <table className="w-full min-w-[900px]">
                         <thead className="bg-dark-50 border-b border-dark-200">
                             <tr>
-                                <th className="text-left py-4 px-6 font-semibold text-dark-900">Member</th>
-                                <th className="text-left py-4 px-6 font-semibold text-dark-900">Contact</th>
-                                <th className="text-left py-4 px-6 font-semibold text-dark-900">Plan</th>
-                                <th className="text-left py-4 px-6 font-semibold text-dark-900">Status</th>
-                                <th className="text-left py-4 px-6 font-semibold text-dark-900">Joined</th>
-                                <th className="text-left py-4 px-6 font-semibold text-dark-900">Expires</th>
+                                <th className="text-left py-3 sm:py-4 px-3 sm:px-6 font-semibold text-dark-900 whitespace-nowrap">Member</th>
+                                <th className="text-left py-3 sm:py-4 px-3 sm:px-6 font-semibold text-dark-900 whitespace-nowrap">Contact</th>
+                                <th className="text-left py-3 sm:py-4 px-3 sm:px-6 font-semibold text-dark-900 whitespace-nowrap">Plan</th>
+                                <th className="text-left py-3 sm:py-4 px-3 sm:px-6 font-semibold text-dark-900 whitespace-nowrap">Status</th>
+                                <th className="text-left py-3 sm:py-4 px-3 sm:px-6 font-semibold text-dark-900 whitespace-nowrap">Joined</th>
+                                <th className="text-left py-3 sm:py-4 px-3 sm:px-6 font-semibold text-dark-900 whitespace-nowrap">Expires</th>
                                 <th className="text-right py-4 px-6 font-semibold text-dark-900">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
                             {loading ? (
                                 <tr>
-                                    <td colSpan="6" className="text-center py-8">Loading...</td>
+                                    <td colSpan="7" className="text-center py-8">Loading...</td>
                                 </tr>
                             ) : members.length === 0 ? (
                                 <tr>
-                                    <td colSpan="6" className="text-center py-8 text-dark-500">No members found</td>
+                                    <td colSpan="7" className="text-center py-8 text-dark-500">No members found</td>
                                 </tr>
                             ) : (
                                 members.map((member, index) => (
@@ -176,24 +176,24 @@ const MembersPage = () => {
                                         transition={{ delay: index * 0.05 }}
                                         className="border-b border-dark-100 hover:bg-dark-50"
                                     >
-                                        <td className="py-4 px-6">
-                                            <div className="flex items-center gap-3">
-                                                <div className="w-10 h-10 bg-primary-100 rounded-full flex items-center justify-center">
+                                        <td className="py-3 sm:py-4 px-3 sm:px-6">
+                                            <div className="flex items-center gap-2 sm:gap-3 min-w-0">
+                                                <div className="w-9 h-9 sm:w-10 sm:h-10 bg-primary-100 rounded-full flex-shrink-0 flex items-center justify-center">
                                                     <span className="text-primary-600 font-semibold">
                                                         {member.name.charAt(0)}
                                                     </span>
                                                 </div>
                                                 <div>
-                                                    <p className="font-medium text-dark-900">{member.name}</p>
+                                                    <p className="font-medium text-dark-900 truncate max-w-[180px]">{member.name}</p>
                                                     <p className="text-sm text-dark-500 capitalize">{member.gender}</p>
                                                 </div>
                                             </div>
                                         </td>
-                                        <td className="py-4 px-6">
-                                            <p className="text-dark-700">{member.email}</p>
+                                        <td className="py-3 sm:py-4 px-3 sm:px-6">
+                                            <p className="text-dark-700 max-w-[220px] truncate">{member.email}</p>
                                             <p className="text-sm text-dark-500">{member.phone}</p>
                                         </td>
-                                        <td className="py-4 px-6">
+                                        <td className="py-3 sm:py-4 px-3 sm:px-6">
                                             <div>
                                                 <p className="text-dark-700 font-medium">
                                                     {member.planName || 'No Plan'}
@@ -214,7 +214,7 @@ const MembersPage = () => {
                                                 )}
                                             </div>
                                         </td>
-                                        <td className="py-4 px-6">
+                                        <td className="py-3 sm:py-4 px-3 sm:px-6">
                                             <span className={`px-3 py-1 rounded-full text-xs font-medium ${member.membershipStatus === 'active'
                                                 ? 'bg-green-100 text-green-700'
                                                 : member.membershipStatus === 'pending'
@@ -224,13 +224,13 @@ const MembersPage = () => {
                                                 {member.membershipStatus}
                                             </span>
                                         </td>
-                                        <td className="py-4 px-6 text-dark-500">
+                                        <td className="py-3 sm:py-4 px-3 sm:px-6 text-dark-500">
                                             {member.membershipStart
                                                 ? new Date(member.membershipStart).toLocaleDateString()
                                                 : new Date(member.createdAt).toLocaleDateString()}
                                         </td>
 
-                                        <td className="py-4 px-6">
+                                        <td className="py-3 sm:py-4 px-3 sm:px-6">
                                             {member.membershipEnd ? (
                                                 (() => {
                                                     const expiryDate = new Date(member.membershipEnd);
@@ -329,11 +329,11 @@ const MembersPage = () => {
                                             )}
                                         </td>
 
-                                        <td className="py-4 px-6 text-right">
-                                            <div className="flex items-center justify-end gap-2">
+                                        <td className="py-3 sm:py-4 px-3 sm:px-6 text-right">
+                                            <div className="flex items-center justify-end gap-1 sm:gap-2 whitespace-nowrap">
                                                 <button
                                                     onClick={() => handleRenew(member)}
-                                                    className="px-3 py-2 text-xs font-medium text-green-600 border border-green-200 rounded-lg hover:bg-green-50 transition-colors"
+                                                    className="px-2 sm:px-3 py-2 text-xs font-medium text-green-600 border border-green-200 rounded-lg hover:bg-green-50 transition-colors"
                                                 >
                                                     Renew
                                                 </button>
@@ -365,25 +365,25 @@ const MembersPage = () => {
 
             {/* Modal */}
             {showModal && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-dark-900/50">
+                <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-dark-900/50 overflow-y-auto">
                     <motion.div
                         initial={{ opacity: 0, scale: 0.95 }}
                         animate={{ opacity: 1, scale: 1 }}
-                        className="bg-white rounded-2xl shadow-xl w-full max-w-lg max-h-[90vh] overflow-y-auto"
+                        className="bg-white rounded-2xl shadow-xl w-full max-w-lg max-h-[92vh] sm:max-h-[90vh] overflow-y-auto my-2 sm:my-0"
                     >
-                        <div className="p-6 border-b border-dark-200">
-                            <h3 className="font-heading text-xl font-bold text-dark-900">
+                        <div className="p-4 sm:p-6 border-b border-dark-200">
+                            <h3 className="font-heading text-lg sm:text-xl font-bold text-dark-900">
                                 {editingMember ? 'Edit Member' : 'Add New Member'}
                             </h3>
                         </div>
-                        <form onSubmit={handleSubmit} className="p-6 space-y-4">
+                        <form onSubmit={handleSubmit} className="p-4 sm:p-6 space-y-4">
                             <Input
                                 label="Full Name"
                                 value={formData.name}
                                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                                 required
                             />
-                            <div className="grid grid-cols-2 gap-4">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                 <Input
                                     label="Email"
                                     type="email"
@@ -450,7 +450,7 @@ const MembersPage = () => {
                                 value={formData.fitnessGoal}
                                 onChange={(e) => setFormData({ ...formData, fitnessGoal: e.target.value })}
                             />
-                            <div className="flex gap-3 pt-4">
+                            <div className="flex flex-col-reverse sm:flex-row gap-3 pt-4">
                                 <Button type="button" variant="secondary" onClick={() => {
                                     setShowModal(false);
                                     setEditingMember(null);
